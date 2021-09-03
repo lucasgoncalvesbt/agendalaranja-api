@@ -32,16 +32,12 @@ public class EstacaoServiceImpl implements EstacaoService {
 
     @Override
     public Estacao createStation(EstacaoDTO estacaoDTO) {
-        AtomicReference<Double> somaDosLugares = new AtomicReference<>(0.0);
-        getAllStation().stream().forEach(estacao -> somaDosLugares.updateAndGet(v -> v + estacao.getQtdLugares()));
-        System.out.println("soma: " + somaDosLugares);
-
+        Double somaDosLugares = estacaoRepository.findByEscritorioId(estacaoDTO.getEscritorioId()).stream().mapToDouble(Estacao::getQtdLugares).sum();
         Double capacidade = escritorioRepository.findById(estacaoDTO.getEscritorioId()).get().getCapacidade();
-        System.out.println("capacidade: " + capacidade);
+        Double somaAposIncremento = estacaoDTO.getQtdLugares() + somaDosLugares;;
 
-        Double calculo = estacaoDTO.getQtdLugares() + somaDosLugares.get();
-        if (calculo > capacidade) {
-            throw new CapacityExceededException(calculo - capacidade);
+        if (somaAposIncremento > capacidade) {
+            throw new CapacityExceededException(estacaoDTO.getEscritorioId(), somaAposIncremento - capacidade);
         }
 
         Estacao estacao = Estacao.builder()
