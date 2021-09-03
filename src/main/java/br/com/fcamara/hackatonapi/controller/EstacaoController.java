@@ -26,9 +26,27 @@ public class EstacaoController {
         return ResponseEntity.ok(estacoes);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<EstacaoDTO> getStationById(@PathVariable Long id) {
+        EstacaoDTO estacao = new EstacaoDTO(estacaoService.getStationById(id));
+        return ResponseEntity.ok(estacao);
+    }
+
     @PostMapping
-    public ResponseEntity<EstacaoDTO> createDesk(@RequestBody EstacaoDTO estacaoDTO) {
+    public ResponseEntity<EstacaoDTO> createStation(@RequestBody EstacaoDTO estacaoDTO) {
         EstacaoDTO estacao = new EstacaoDTO(estacaoService.createStation(estacaoDTO));
         return ResponseEntity.ok(estacao);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<EstacaoDTO> updateStation(@PathVariable Long id, @RequestBody EstacaoDTO estacaoDTO) {
+        EstacaoDTO estacao = new EstacaoDTO(estacaoService.updateStation(id, estacaoDTO));
+        return ResponseEntity.ok(estacao);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteStation(@PathVariable Long id) {
+        estacaoService.deleteStation(id);
+        return ResponseEntity.noContent().build();
     }
 }

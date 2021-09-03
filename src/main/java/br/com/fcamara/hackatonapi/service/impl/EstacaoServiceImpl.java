@@ -2,6 +2,8 @@ package br.com.fcamara.hackatonapi.service.impl;
 
 import br.com.fcamara.hackatonapi.dto.EstacaoDTO;
 import br.com.fcamara.hackatonapi.exception.CapacityExceededException;
+import br.com.fcamara.hackatonapi.exception.NotFoundException;
+import br.com.fcamara.hackatonapi.model.Escritorio;
 import br.com.fcamara.hackatonapi.model.Estacao;
 import br.com.fcamara.hackatonapi.repository.EscritorioRepository;
 import br.com.fcamara.hackatonapi.repository.EstacaoRepository;
@@ -30,21 +32,41 @@ public class EstacaoServiceImpl implements EstacaoService {
         return estacaoRepository.findAll();
     }
 
+
+    @Override
+    public Estacao getStationById(Long id) {
+        return estacaoRepository.findById(id).orElseThrow(() -> new NotFoundException(id, "Estação"));
+    }
+
     @Override
     public Estacao createStation(EstacaoDTO estacaoDTO) {
-        Double somaDosLugares = estacaoRepository.findByEscritorioId(estacaoDTO.getEscritorioId()).stream().mapToDouble(Estacao::getQtdLugares).sum();
-        Double capacidade = escritorioRepository.findById(estacaoDTO.getEscritorioId()).get().getCapacidade();
-        Double somaAposIncremento = estacaoDTO.getQtdLugares() + somaDosLugares;;
 
-        if (somaAposIncremento > capacidade) {
-            throw new CapacityExceededException(estacaoDTO.getEscritorioId(), somaAposIncremento - capacidade);
+        Escritorio escritorio = escritorioRepository.findById(estacaoDTO.getEscritorioId())
+                .orElseThrow(() -> new NotFoundException(estacaoDTO.getEscritorioId(), "Escritório"));
+
+        Double somaDosLugares = estacaoRepository.findByEscritorioId(estacaoDTO.getEscritorioId()).stream().mapToDouble(Estacao::getQtdLugares).sum();
+        Double capacidade = escritorio.getCapacidade();
+
+        Double somaAposIncrementoDeLugares = estacaoDTO.getQtdLugares() + somaDosLugares;
+        if (somaAposIncrementoDeLugares > capacidade) {
+            throw new CapacityExceededException(escritorio.getId(), somaAposIncrementoDeLugares - capacidade);
         }
 
         Estacao estacao = Estacao.builder()
                 .qtdLugares(estacaoDTO.getQtdLugares())
-                .escritorio(escritorioRepository.findById(estacaoDTO.getEscritorioId()).get())
+                .escritorio(escritorio)
                 .build();
 
         return estacaoRepository.save(estacao);
+    }
+
+    @Override
+    public Estacao updateStation(Long id, EstacaoDTO estacaoDTO) {
+        return null;
+    }
+
+    @Override
+    public void deleteStation(Long id) {
+
     }
 }

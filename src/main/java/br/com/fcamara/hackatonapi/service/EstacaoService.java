@@ -9,4 +9,10 @@ public interface EstacaoService {
     List<Estacao> getAllStation();
 
     Estacao createStation(EstacaoDTO estacaoDTO);
+
+    Estacao getStationById(Long id);
+
+    Estacao updateStation(Long id, EstacaoDTO estacaoDTO);
+
+    void deleteStation(Long id);
 }
