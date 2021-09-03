@@ -52,4 +52,9 @@ public class EscritorioServiceImpl implements EscritorioService {
 
         return escritorioRepository.save(escritorio);
     }
+
+    @Override
+    public void deleteDesk(Long id) {
+        escritorioRepository.deleteById(id);
+    }
 }

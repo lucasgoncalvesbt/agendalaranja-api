@@ -15,4 +15,6 @@ public interface EscritorioService {
     Escritorio getDeskById(Long id);
 
     Escritorio updateDesk(Long id, EscritorioDTO escritorioDTO);
+
+    void deleteDesk(Long id);
 }

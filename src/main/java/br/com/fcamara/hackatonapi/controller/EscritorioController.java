@@ -43,4 +43,9 @@ public class EscritorioController {
         return ResponseEntity.ok(escritorio);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteDesk(@PathVariable Long id) {
+        escritorioService.deleteDesk(id);
+        return ResponseEntity.noContent().build();
+    }
 }
