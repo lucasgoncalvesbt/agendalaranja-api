@@ -25,9 +25,21 @@ public class EscritorioController {
         return ResponseEntity.ok(escritorios);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<EscritorioDTO> getDeskById(@PathVariable Long id) {
+        EscritorioDTO escritorio = new EscritorioDTO(escritorioService.getDeskById(id));
+        return ResponseEntity.ok(escritorio);
+    }
+
     @PostMapping
     public ResponseEntity<EscritorioDTO> createDesk(@RequestBody EscritorioDTO escritorioDTO) {
         EscritorioDTO escritorio = new EscritorioDTO(escritorioService.registrarEscritorio(escritorioDTO));
+        return ResponseEntity.ok(escritorio);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<EscritorioDTO> updateDesk(@PathVariable Long id, @RequestBody EscritorioDTO escritorioDTO) {
+        EscritorioDTO escritorio = new EscritorioDTO(escritorioService.updateDesk(id, escritorioDTO));
         return ResponseEntity.ok(escritorio);
     }
 
