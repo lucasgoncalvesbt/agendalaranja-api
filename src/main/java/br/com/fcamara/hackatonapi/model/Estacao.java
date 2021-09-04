@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -23,4 +24,6 @@ public class Estacao {
     @ManyToOne
     private Escritorio escritorio;
 
+    @OneToMany(mappedBy = "estacao")
+    private List<Agendamento> agendamentos;
 }
