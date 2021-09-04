@@ -44,13 +44,7 @@ public class EstacaoServiceImpl implements EstacaoService {
         Escritorio escritorio = escritorioRepository.findById(estacaoDTO.getEscritorioId())
                 .orElseThrow(() -> new NotFoundException(estacaoDTO.getEscritorioId(), "Escritório"));
 
-        Double somaDosLugares = estacaoRepository.findByEscritorioId(estacaoDTO.getEscritorioId()).stream().mapToDouble(Estacao::getQtdLugares).sum();
-        Double capacidade = escritorio.getCapacidade();
-
-        Double somaAposIncrementoDeLugares = estacaoDTO.getQtdLugares() + somaDosLugares;
-        if (somaAposIncrementoDeLugares > capacidade) {
-            throw new CapacityExceededException(escritorio.getId(), somaAposIncrementoDeLugares - capacidade);
-        }
+        verificaCapacacidade(estacaoDTO, escritorio);
 
         Estacao estacao = Estacao.builder()
                 .qtdLugares(estacaoDTO.getQtdLugares())
@@ -62,11 +56,33 @@ public class EstacaoServiceImpl implements EstacaoService {
 
     @Override
     public Estacao updateStation(Long id, EstacaoDTO estacaoDTO) {
-        return null;
+        Estacao estacao = getStationById(id);
+        Escritorio escritorio = escritorioRepository.findById(estacaoDTO.getEscritorioId())
+                .orElseThrow(() -> new NotFoundException(estacaoDTO.getEscritorioId(), "Escritório"));
+
+        verificaCapacacidade(estacaoDTO, escritorio);
+
+        estacao.setQtdLugares(estacaoDTO.getQtdLugares());
+
+        return estacaoRepository.save(estacao);
     }
 
     @Override
     public void deleteStation(Long id) {
+        estacaoRepository.deleteById(id);
+    }
 
+
+
+
+
+    private void verificaCapacacidade(EstacaoDTO estacaoDTO, Escritorio escritorio) {
+        Double somaDosLugares = estacaoRepository.findByEscritorioId(estacaoDTO.getEscritorioId()).stream().mapToDouble(Estacao::getQtdLugares).sum();
+        Double capacidade = escritorio.getCapacidade();
+
+        Double somaAposIncrementoDeLugares = estacaoDTO.getQtdLugares() + somaDosLugares;
+        if (somaAposIncrementoDeLugares > capacidade) {
+            throw new CapacityExceededException(escritorio.getId(), somaAposIncrementoDeLugares - capacidade);
+        }
     }
 }
