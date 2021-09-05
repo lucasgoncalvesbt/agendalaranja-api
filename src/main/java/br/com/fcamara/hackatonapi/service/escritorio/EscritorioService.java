@@ -1,4 +1,4 @@
-package br.com.fcamara.hackatonapi.service;
+package br.com.fcamara.hackatonapi.service.escritorio;
 
 import br.com.fcamara.hackatonapi.dto.EscritorioDTO;
 import br.com.fcamara.hackatonapi.model.Escritorio;

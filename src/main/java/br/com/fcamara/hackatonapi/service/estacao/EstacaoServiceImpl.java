@@ -1,4 +1,4 @@
-package br.com.fcamara.hackatonapi.service.impl;
+package br.com.fcamara.hackatonapi.service.estacao;
 
 import br.com.fcamara.hackatonapi.dto.EstacaoDTO;
 import br.com.fcamara.hackatonapi.exception.CapacityExceededException;
@@ -7,12 +7,11 @@ import br.com.fcamara.hackatonapi.model.Escritorio;
 import br.com.fcamara.hackatonapi.model.Estacao;
 import br.com.fcamara.hackatonapi.repository.EscritorioRepository;
 import br.com.fcamara.hackatonapi.repository.EstacaoRepository;
-import br.com.fcamara.hackatonapi.service.EstacaoService;
+import br.com.fcamara.hackatonapi.service.estacao.EstacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class EstacaoServiceImpl implements EstacaoService {
@@ -35,14 +34,14 @@ public class EstacaoServiceImpl implements EstacaoService {
 
     @Override
     public Estacao getStationById(Long id) {
-        return estacaoRepository.findById(id).orElseThrow(() -> new NotFoundException(id, "Estação"));
+        return estacaoRepository.findById(id).orElseThrow(() -> new NotFoundException(id.toString(), "Estação"));
     }
 
     @Override
     public Estacao createStation(EstacaoDTO estacaoDTO) {
 
         Escritorio escritorio = escritorioRepository.findById(estacaoDTO.getEscritorioId())
-                .orElseThrow(() -> new NotFoundException(estacaoDTO.getEscritorioId(), "Escritório"));
+                .orElseThrow(() -> new NotFoundException(estacaoDTO.getEscritorioId().toString(), "Escritório"));
 
         verificaCapacacidade(estacaoDTO, escritorio);
 
@@ -58,7 +57,7 @@ public class EstacaoServiceImpl implements EstacaoService {
     public Estacao updateStation(Long id, EstacaoDTO estacaoDTO) {
         Estacao estacao = getStationById(id);
         Escritorio escritorio = escritorioRepository.findById(estacaoDTO.getEscritorioId())
-                .orElseThrow(() -> new NotFoundException(estacaoDTO.getEscritorioId(), "Escritório"));
+                .orElseThrow(() -> new NotFoundException(estacaoDTO.getEscritorioId().toString(), "Escritório"));
 
         verificaCapacacidade(estacaoDTO, escritorio);
 

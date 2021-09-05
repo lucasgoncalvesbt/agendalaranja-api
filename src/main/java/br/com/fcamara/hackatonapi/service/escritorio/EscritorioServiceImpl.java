@@ -1,10 +1,10 @@
-package br.com.fcamara.hackatonapi.service.impl;
+package br.com.fcamara.hackatonapi.service.escritorio;
 
 import br.com.fcamara.hackatonapi.dto.EscritorioDTO;
 import br.com.fcamara.hackatonapi.exception.NotFoundException;
 import br.com.fcamara.hackatonapi.model.Escritorio;
 import br.com.fcamara.hackatonapi.repository.EscritorioRepository;
-import br.com.fcamara.hackatonapi.service.EscritorioService;
+import br.com.fcamara.hackatonapi.service.escritorio.EscritorioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +30,7 @@ public class EscritorioServiceImpl implements EscritorioService {
 
     @Override
     public Escritorio getDeskById(Long id) {
-        return escritorioRepository.findById(id).orElseThrow(() -> new NotFoundException(id, "Escritório"));
+        return escritorioRepository.findById(id).orElseThrow(() -> new NotFoundException(id.toString(), "Escritório"));
     }
 
     @Override

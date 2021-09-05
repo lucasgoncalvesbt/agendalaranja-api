@@ -1,7 +1,7 @@
 package br.com.fcamara.hackatonapi.controller;
 
 import br.com.fcamara.hackatonapi.dto.EscritorioDTO;
-import br.com.fcamara.hackatonapi.service.EscritorioService;
+import br.com.fcamara.hackatonapi.service.escritorio.EscritorioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

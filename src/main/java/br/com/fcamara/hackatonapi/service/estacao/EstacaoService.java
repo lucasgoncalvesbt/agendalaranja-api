@@ -1,4 +1,4 @@
-package br.com.fcamara.hackatonapi.service;
+package br.com.fcamara.hackatonapi.service.estacao;
 
 import br.com.fcamara.hackatonapi.dto.EstacaoDTO;
 import br.com.fcamara.hackatonapi.model.Estacao;

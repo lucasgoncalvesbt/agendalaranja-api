@@ -1,9 +1,7 @@
 package br.com.fcamara.hackatonapi.controller;
 
-import br.com.fcamara.hackatonapi.dto.EscritorioDTO;
 import br.com.fcamara.hackatonapi.dto.EstacaoDTO;
-import br.com.fcamara.hackatonapi.model.Estacao;
-import br.com.fcamara.hackatonapi.service.EstacaoService;
+import br.com.fcamara.hackatonapi.service.estacao.EstacaoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
