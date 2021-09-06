@@ -1,11 +1,13 @@
 package br.com.fcamara.hackatonapi.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -29,9 +31,9 @@ public class Agendamento {
     private String emailConsultor;
 
     @Column(name = "data_agendada", nullable = false)
-    private LocalDateTime dataAgendada;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate dataAgendada;
 
     @ManyToOne
-    @Column(name = "estacao")
     private Estacao estacao;
 }

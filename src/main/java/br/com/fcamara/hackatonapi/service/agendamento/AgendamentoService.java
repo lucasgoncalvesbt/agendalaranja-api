@@ -14,8 +14,8 @@ public interface AgendamentoService {
 
     Agendamento createScheduling(AgendamentoDTO agendamentoDTO);
 
-    Agendamento updateScheduling(Long id, AgendamentoDTO agendamentoDTO);
+    Agendamento updateScheduling(UUID id, AgendamentoDTO agendamentoDTO);
 
-    void deleteScheduling(Long id);
+    void deleteScheduling(UUID id);
 
 }
