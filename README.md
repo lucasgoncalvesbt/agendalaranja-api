@@ -1,4 +1,4 @@
-## Hackaton-Api
+# Hackaton-Api
 Back-End/API de uma aplicação web de agendamento desenvolvida durante o Hackaton do Programa de Formação do Grupo Fcamara
 
 ## Pré-Requisitos
