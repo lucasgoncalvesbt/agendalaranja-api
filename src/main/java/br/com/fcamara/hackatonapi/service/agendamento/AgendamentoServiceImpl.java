@@ -30,8 +30,9 @@ public class AgendamentoServiceImpl implements AgendamentoService{
 
 
     @Override
-    public List<Agendamento> getAllScheduling() {
-        return agendamentoRepository.findAll();
+    public List<Agendamento> getAllScheduling(Long estacaoId) {
+
+        return agendamentoRepository.findByEstacao_Id(estacaoId);
     }
 
     @Override

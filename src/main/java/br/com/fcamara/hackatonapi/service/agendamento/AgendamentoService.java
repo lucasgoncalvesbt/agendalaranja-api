@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface AgendamentoService {
 
-    List<Agendamento> getAllScheduling();
+    List<Agendamento> getAllScheduling(Long estacaoId);
 
     Agendamento getSchedulingById(UUID id);
 

@@ -25,8 +25,8 @@ public class AgendamentoController {
 
 
     @GetMapping
-    public ResponseEntity<List<AgendamentoDTO>> getAllScheduling() {
-        List<AgendamentoDTO> agendamentos = AgendamentoDTO.convertList(agendamentoService.getAllScheduling());
+    public ResponseEntity<List<AgendamentoDTO>> getAllScheduling(@RequestParam(name = "estacaoId") Long estacaoId) {
+        List<AgendamentoDTO> agendamentos = AgendamentoDTO.convertList(agendamentoService.getAllScheduling(estacaoId));
         return ResponseEntity.ok(agendamentos);
     }
 
