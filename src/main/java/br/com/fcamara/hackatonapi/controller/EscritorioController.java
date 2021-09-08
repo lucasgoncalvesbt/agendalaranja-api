@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/escritorio")
+@CrossOrigin(origins = "*")
 public class EscritorioController {
 
     private EscritorioService escritorioService;
