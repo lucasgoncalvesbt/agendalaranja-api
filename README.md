@@ -1,4 +1,4 @@
-##Hackaton-Api
+## Hackaton-Api 
 Back-End/API de uma aplicação web de agendamento desenvolvida durante o Hackaton do Programa de Formação do Grupo Fcamara
 
 ## Pré-Requisitos
@@ -20,5 +20,5 @@ Ou como alternativa você pode utilizar o [Spring Boot Maven plugin](https://doc
 mvn spring-boot:run
 ```
 
-##Documentação
+## Documentação
 Para verificar os endpoints da API importe no Postman o arquivo HackatonCollections que está na raíz do projeto.
