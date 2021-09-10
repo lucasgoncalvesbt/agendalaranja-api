@@ -1,7 +1,7 @@
 package br.com.fcamara.hackatonapi.service.agendamento;
 
 import br.com.fcamara.hackatonapi.dto.AgendamentoDTO;
-import br.com.fcamara.hackatonapi.exception.EmailAlreadyScheduledException;
+import br.com.fcamara.hackatonapi.exception.EmailAlreadyScheduledForThisDayException;
 import br.com.fcamara.hackatonapi.exception.NotFoundException;
 import br.com.fcamara.hackatonapi.exception.SchedulingExceededException;
 import br.com.fcamara.hackatonapi.model.Agendamento;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class AgendamentoServiceImpl implements AgendamentoService{
@@ -49,7 +48,7 @@ public class AgendamentoServiceImpl implements AgendamentoService{
         List<Agendamento> agendamentos = agendamentoRepository.findByDataAgendada(agendamentoDTO.getDataAgendada());
 
         if (agendamentos.stream().anyMatch(a -> a.getEmailConsultor().equals(agendamentoDTO.getEmailConsultor()))) {
-            throw new EmailAlreadyScheduledException(agendamentoDTO.getEmailConsultor());
+            throw new EmailAlreadyScheduledForThisDayException(agendamentoDTO.getEmailConsultor());
         }
 
         verificaSeONumeroDeAgendamentosJaEstaNoMaximo(agendamentoDTO, estacao, agendamentos);
