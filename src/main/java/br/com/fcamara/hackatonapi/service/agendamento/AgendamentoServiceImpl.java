@@ -72,7 +72,11 @@ public class AgendamentoServiceImpl implements AgendamentoService{
 
         List<Agendamento> agendamentos = agendamentoRepository.findByDataAgendada(agendamentoDTO.getDataAgendada());
 
-        if (agendamento.getDataAgendada() != agendamentoDTO.getDataAgendada() || agendamento.getEstacao().getId() != agendamentoDTO.getEstacaoId()) {
+        if (agendamentos.stream().anyMatch(a -> a.getEmailConsultor().equals(agendamento.getEmailConsultor()))) {
+            throw new EmailAlreadyScheduledForThisDayException(agendamento.getEmailConsultor());
+        }
+
+        if (agendamento.getDataAgendada() != agendamentoDTO.getDataAgendada() || !agendamento.getEstacao().getId().equals(agendamentoDTO.getEstacaoId())) {
             verificaSeONumeroDeAgendamentosJaEstaNoMaximo(agendamentoDTO, estacao, agendamentos);
         }
 
