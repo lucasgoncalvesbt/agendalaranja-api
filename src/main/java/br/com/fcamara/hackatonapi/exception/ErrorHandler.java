@@ -28,4 +28,9 @@ public class ErrorHandler {
     public ResponseEntity<ResponseErrorDTO> schedulingExceededException(SchedulingExceededException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseErrorDTO.builder().message(e.getMessage()).build());
     }
+
+    @ExceptionHandler(EmailAlreadyHasAnAccount.class)
+    public ResponseEntity<ResponseErrorDTO> emailAlreadyHasAnAccount(EmailAlreadyHasAnAccount e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseErrorDTO.builder().message(e.getMessage()).build());
+    }
 }
