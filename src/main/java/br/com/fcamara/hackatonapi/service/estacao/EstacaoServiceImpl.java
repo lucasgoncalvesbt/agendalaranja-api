@@ -51,6 +51,7 @@ public class EstacaoServiceImpl implements EstacaoService {
 
         Estacao estacao = Estacao.builder()
                 .qtdLugares(estacaoDTO.getQtdLugares())
+                .nomeEstacao(estacaoDTO.getNomeEstacao())
                 .escritorio(escritorio)
                 .build();
 
@@ -66,6 +67,7 @@ public class EstacaoServiceImpl implements EstacaoService {
         verificaCapacacidade(estacaoDTO, escritorio);
 
         estacao.setQtdLugares(estacaoDTO.getQtdLugares());
+        estacao.setNomeEstacao(estacaoDTO.getNomeEstacao());
 
         return estacaoRepository.save(estacao);
     }

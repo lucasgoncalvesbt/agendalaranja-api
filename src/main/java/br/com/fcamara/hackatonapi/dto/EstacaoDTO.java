@@ -17,11 +17,13 @@ public class EstacaoDTO {
 
     private Long id;
     private Double qtdLugares;
+    private String nomeEstacao;
     private Long escritorioId;
 
     public EstacaoDTO(Estacao estacao) {
         this.id = estacao.getId();
         this.qtdLugares = estacao.getQtdLugares();
+        this.nomeEstacao = estacao.getNomeEstacao();
         this.escritorioId = estacao.getEscritorio().getId();
     }
 

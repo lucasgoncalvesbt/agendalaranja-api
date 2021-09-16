@@ -19,6 +19,7 @@ public class Estacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String nomeEstacao;
     private Double qtdLugares;
 
     @ManyToOne
