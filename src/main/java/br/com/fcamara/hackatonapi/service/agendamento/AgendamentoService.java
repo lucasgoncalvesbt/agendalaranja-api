@@ -18,4 +18,5 @@ public interface AgendamentoService {
 
     void deleteScheduling(UUID id);
 
+    List<Agendamento> getAllSchedulingByConsultor(String emailConsultor);
 }

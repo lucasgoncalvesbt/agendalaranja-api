@@ -12,4 +12,6 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, UUID> 
     List<Agendamento> findByEstacao_Id(Long estacaoId);
 
     List<Agendamento> findByDataAgendada(LocalDate dataAgendada);
+
+    List<Agendamento> findByEmailConsultor(String emailConsultor);
 }

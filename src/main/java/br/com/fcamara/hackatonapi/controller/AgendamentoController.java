@@ -1,7 +1,6 @@
 package br.com.fcamara.hackatonapi.controller;
 
 import br.com.fcamara.hackatonapi.dto.AgendamentoDTO;
-import br.com.fcamara.hackatonapi.model.Agendamento;
 import br.com.fcamara.hackatonapi.service.agendamento.AgendamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,8 +25,14 @@ public class AgendamentoController {
 
 
     @GetMapping
-    public ResponseEntity<List<AgendamentoDTO>> getAllScheduling(@RequestParam(name = "estacaoId") Long estacaoId) {
-        List<AgendamentoDTO> agendamentos = AgendamentoDTO.convertList(agendamentoService.getAllScheduling(estacaoId));
+    public ResponseEntity<List<AgendamentoDTO>> getAllScheduling(@RequestParam(name = "estacaoId", required = false) Long estacaoId, @RequestParam(name = "emailConsultor", required = false) String emailConsultor) {
+        List<AgendamentoDTO> agendamentos = null;
+        if(estacaoId == null && !emailConsultor.isEmpty()) {
+            agendamentos = AgendamentoDTO.convertList(agendamentoService.getAllSchedulingByConsultor(emailConsultor));
+        } else if(estacaoId != null) {
+            agendamentos = AgendamentoDTO.convertList(agendamentoService.getAllScheduling(estacaoId));
+        }
+
         return ResponseEntity.ok(agendamentos);
     }
 

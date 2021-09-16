@@ -4,11 +4,14 @@ import br.com.fcamara.hackatonapi.dto.AgendamentoDTO;
 import br.com.fcamara.hackatonapi.exception.EmailAlreadyScheduledForThisDayException;
 import br.com.fcamara.hackatonapi.exception.NotFoundException;
 import br.com.fcamara.hackatonapi.exception.SchedulingExceededException;
+import br.com.fcamara.hackatonapi.exception.UserDoesNotHavePermissionException;
 import br.com.fcamara.hackatonapi.model.Agendamento;
 import br.com.fcamara.hackatonapi.model.Estacao;
+import br.com.fcamara.hackatonapi.model.Usuario;
 import br.com.fcamara.hackatonapi.repository.AgendamentoRepository;
 import br.com.fcamara.hackatonapi.repository.EstacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,8 +32,12 @@ public class AgendamentoServiceImpl implements AgendamentoService{
 
 
     @Override
-    public List<Agendamento> getAllScheduling(Long estacaoId) {
+    public List<Agendamento> getAllSchedulingByConsultor(String emailConsultor) {
+        return agendamentoRepository.findByEmailConsultor(emailConsultor);
+    }
 
+    @Override
+    public List<Agendamento> getAllScheduling(Long estacaoId) {
         return agendamentoRepository.findByEstacao_Id(estacaoId);
     }
 
@@ -50,6 +57,10 @@ public class AgendamentoServiceImpl implements AgendamentoService{
         if (agendamentos.stream().anyMatch(a -> a.getEmailConsultor().equals(agendamentoDTO.getEmailConsultor()))) {
             throw new EmailAlreadyScheduledForThisDayException(agendamentoDTO.getEmailConsultor());
         }
+
+        verificaSeOUsuarioLogadoEOMesmoQueEstaAgendando(agendamentoDTO.getEmailConsultor());
+
+
 
         verificaSeONumeroDeAgendamentosJaEstaNoMaximo(agendamentoDTO, estacao, agendamentos);
 
@@ -92,6 +103,15 @@ public class AgendamentoServiceImpl implements AgendamentoService{
         agendamentoRepository.deleteById(id);
     }
 
+
+
+
+    private void verificaSeOUsuarioLogadoEOMesmoQueEstaAgendando(String emailConsultor) {
+        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(!emailConsultor.equals(usuario.getEmail())) {
+            throw new UserDoesNotHavePermissionException();
+        };
+    }
 
     private void verificaSeONumeroDeAgendamentosJaEstaNoMaximo(AgendamentoDTO agendamentoDTO, Estacao estacao, List<Agendamento> agendamentos) {
         Integer somaDosAgendametosNoDia = verificaNaEstacaoNumeroDeAgendamentosNoDia(agendamentoDTO, agendamentos);
