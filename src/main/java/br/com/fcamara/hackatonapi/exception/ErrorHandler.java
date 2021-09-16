@@ -21,7 +21,7 @@ public class ErrorHandler {
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ResponseErrorDTO> notFoundException(NotFoundException e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseErrorDTO.builder().message(e.getMessage()).build());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseErrorDTO.builder().message(e.getMessage()).build());
     }
 
     @ExceptionHandler(SchedulingExceededException.class)
@@ -29,8 +29,13 @@ public class ErrorHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseErrorDTO.builder().message(e.getMessage()).build());
     }
 
-    @ExceptionHandler(EmailAlreadyHasAnAccount.class)
-    public ResponseEntity<ResponseErrorDTO> emailAlreadyHasAnAccount(EmailAlreadyHasAnAccount e) {
+    @ExceptionHandler(EmailAlreadyHasAnAccountException.class)
+    public ResponseEntity<ResponseErrorDTO> emailAlreadyHasAnAccount(EmailAlreadyHasAnAccountException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseErrorDTO.builder().message(e.getMessage()).build());
+    }
+
+    @ExceptionHandler(UserDoesNotHavePermissionException.class)
+    public ResponseEntity<ResponseErrorDTO> userDoesNotHavePermissionException(UserDoesNotHavePermissionException e) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ResponseErrorDTO.builder().message(e.getMessage()).build());
     }
 }

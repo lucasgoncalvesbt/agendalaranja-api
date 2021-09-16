@@ -3,7 +3,7 @@ package br.com.fcamara.hackatonapi.controller;
 import br.com.fcamara.hackatonapi.dto.ContaCriadaDTO;
 import br.com.fcamara.hackatonapi.dto.LoginDTO;
 import br.com.fcamara.hackatonapi.dto.TokenDTO;
-import br.com.fcamara.hackatonapi.exception.EmailAlreadyHasAnAccount;
+import br.com.fcamara.hackatonapi.exception.EmailAlreadyHasAnAccountException;
 import br.com.fcamara.hackatonapi.model.Usuario;
 import br.com.fcamara.hackatonapi.repository.UserRepository;
 import br.com.fcamara.hackatonapi.security.TokenService;
@@ -46,7 +46,7 @@ public class AuthenticationController {
     public ResponseEntity<ContaCriadaDTO> signout(@RequestBody @Validated LoginDTO loginDTO) {
 
         if(userRepository.findByEmail(loginDTO.getEmail()).isPresent()) {
-            throw new EmailAlreadyHasAnAccount(loginDTO.getEmail());
+            throw new EmailAlreadyHasAnAccountException(loginDTO.getEmail());
         }
 
         Usuario usuario = Usuario.builder()
