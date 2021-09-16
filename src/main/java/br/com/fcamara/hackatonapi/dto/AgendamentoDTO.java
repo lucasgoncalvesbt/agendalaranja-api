@@ -24,6 +24,7 @@ public class AgendamentoDTO {
     private String nomeConsultor;
     private String emailConsultor;
     private Long estacaoId;
+    private String escritorioName;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
     @DateTimeFormat(pattern = "dd-MM-yyyy")
@@ -37,6 +38,7 @@ public class AgendamentoDTO {
         this.emailConsultor = agendamento.getEmailConsultor();
         this.dataAgendada = agendamento.getDataAgendada();
         this.estacaoId = agendamento.getEstacao().getId();
+        this.escritorioName = agendamento.getEstacao().getEscritorio().getLocal();
     }
 
     public static List<AgendamentoDTO> convertList(List<Agendamento> agendamentos) {
