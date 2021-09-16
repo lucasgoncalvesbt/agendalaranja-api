@@ -5,9 +5,13 @@ import lombok.Data;
 
 @Builder
 @Data
-public class LoginDTO {
+public class CadastroDTO {
 
     private String email;
+
+    private String nome;
+
+    private String sobrenome;
 
     private String senha;
 

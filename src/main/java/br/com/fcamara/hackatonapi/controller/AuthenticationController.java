@@ -1,5 +1,6 @@
 package br.com.fcamara.hackatonapi.controller;
 
+import br.com.fcamara.hackatonapi.dto.CadastroDTO;
 import br.com.fcamara.hackatonapi.dto.ContaCriadaDTO;
 import br.com.fcamara.hackatonapi.dto.LoginDTO;
 import br.com.fcamara.hackatonapi.dto.TokenDTO;
@@ -43,23 +44,24 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signout")
-    public ResponseEntity<ContaCriadaDTO> signout(@RequestBody @Validated LoginDTO loginDTO) {
+    public ResponseEntity<ContaCriadaDTO> signout(@RequestBody @Validated CadastroDTO cadastroDTO) {
 
-        if(userRepository.findByEmail(loginDTO.getEmail()).isPresent()) {
-            throw new EmailAlreadyHasAnAccountException(loginDTO.getEmail());
+        if(userRepository.findByEmail(cadastroDTO.getEmail()).isPresent()) {
+            throw new EmailAlreadyHasAnAccountException(cadastroDTO.getEmail());
         }
 
         Usuario usuario = Usuario.builder()
-                .email(loginDTO.getEmail())
-                .name(loginDTO.getNome())
-                .pass(new BCryptPasswordEncoder().encode(loginDTO.getSenha()))
+                .email(cadastroDTO.getEmail())
+                .nome(cadastroDTO.getNome())
+                .sobrenome(cadastroDTO.getSobrenome())
+                .pass(new BCryptPasswordEncoder().encode(cadastroDTO.getSenha()))
                 .build();
 
         userRepository.save(usuario);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ContaCriadaDTO.builder()
-                        .mensagem("Conta com email " + loginDTO.getEmail() + " criada com sucesso!").build());
+                        .mensagem("Conta com email " + cadastroDTO.getEmail() + " criada com sucesso!").build());
     }
 
 

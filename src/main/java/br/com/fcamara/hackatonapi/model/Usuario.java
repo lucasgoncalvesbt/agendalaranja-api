@@ -26,7 +26,9 @@ public class Usuario implements UserDetails {
 
     private String email;
 
-    private String name;
+    private String nome;
+
+    private String sobrenome;
 
     private String pass;
 

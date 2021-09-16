@@ -28,7 +28,8 @@ public class TokenService {
 
         return Jwts.builder().setIssuer("Agendamento FCamara")
                 .setSubject(usuario.getId().toString())
-                .claim("nome", usuario.getName())
+                .claim("nome", usuario.getNome())
+                .claim("sobrenome", usuario.getSobrenome())
                 .claim("email", usuario.getEmail())
                 .setIssuedAt(new Date())
                 .setExpiration(exp)
