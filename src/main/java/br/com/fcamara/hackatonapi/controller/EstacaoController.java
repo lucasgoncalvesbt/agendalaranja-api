@@ -20,8 +20,13 @@ public class EstacaoController {
 
 
     @GetMapping
-    public ResponseEntity<List<EstacaoDTO>> getAllStation() {
-        List<EstacaoDTO> estacoes = EstacaoDTO.convertList(estacaoService.getAllStation());
+    public ResponseEntity<List<EstacaoDTO>> getAllStation(@RequestParam(name = "escritorioId", required = false) Long escritorioId) {
+        List<EstacaoDTO> estacoes;
+        if(escritorioId != null) {
+            estacoes = EstacaoDTO.convertList(estacaoService.getAllStationByDeskId(escritorioId));
+        } else {
+            estacoes = EstacaoDTO.convertList(estacaoService.getAllStation());
+        }
         return ResponseEntity.ok(estacoes);
     }
 

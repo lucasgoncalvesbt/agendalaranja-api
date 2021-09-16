@@ -15,4 +15,6 @@ public interface EstacaoService {
     Estacao updateStation(Long id, EstacaoDTO estacaoDTO);
 
     void deleteStation(Long id);
+
+    List<Estacao> getAllStationByDeskId(Long escritorioId);
 }

@@ -31,6 +31,10 @@ public class EstacaoServiceImpl implements EstacaoService {
         return estacaoRepository.findAll();
     }
 
+    @Override
+    public List<Estacao> getAllStationByDeskId(Long escritorioId) {
+        return estacaoRepository.findByEscritorioId(escritorioId);
+    }
 
     @Override
     public Estacao getStationById(Long id) {
@@ -70,8 +74,6 @@ public class EstacaoServiceImpl implements EstacaoService {
     public void deleteStation(Long id) {
         estacaoRepository.deleteById(id);
     }
-
-
 
 
 
