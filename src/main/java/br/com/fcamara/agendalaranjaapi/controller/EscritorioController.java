@@ -3,6 +3,7 @@ package br.com.fcamara.agendalaranjaapi.controller;
 import br.com.fcamara.agendalaranjaapi.dto.EscritorioDTO;
 import br.com.fcamara.agendalaranjaapi.service.escritorio.EscritorioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +36,7 @@ public class EscritorioController {
     @PostMapping
     public ResponseEntity<EscritorioDTO> createDesk(@RequestBody EscritorioDTO escritorioDTO) {
         EscritorioDTO escritorio = new EscritorioDTO(escritorioService.registrarEscritorio(escritorioDTO));
-        return ResponseEntity.ok(escritorio);
+        return ResponseEntity.status(HttpStatus.CREATED).body(escritorio);
     }
 
     @PutMapping("/{id}")

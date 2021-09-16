@@ -77,7 +77,7 @@ public class AgendamentoControllerTest {
     }
 
     @Test
-    void quandoGETParaListarAgendamentosForChamadoPassandoOParametroDeEscritorioIdRetorneStatusCodeOk() throws Exception {
+    void quandoGETParaListarAgendamentosForChamadoPassandoOParametroDeEstacaoIdRetorneStatusCodeOk() throws Exception {
         Agendamento agendamento = agendamentoBuilder();
 
         mockMvc.perform(get(AGENDAMENTO_API_URL_PATH)

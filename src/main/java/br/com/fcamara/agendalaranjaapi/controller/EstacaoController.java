@@ -2,6 +2,7 @@ package br.com.fcamara.agendalaranjaapi.controller;
 
 import br.com.fcamara.agendalaranjaapi.dto.EstacaoDTO;
 import br.com.fcamara.agendalaranjaapi.service.estacao.EstacaoService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +40,7 @@ public class EstacaoController {
     @PostMapping
     public ResponseEntity<EstacaoDTO> createStation(@RequestBody EstacaoDTO estacaoDTO) {
         EstacaoDTO estacao = new EstacaoDTO(estacaoService.createStation(estacaoDTO));
-        return ResponseEntity.ok(estacao);
+        return ResponseEntity.status(HttpStatus.CREATED).body(estacao);
     }
 
     @PutMapping("/{id}")
