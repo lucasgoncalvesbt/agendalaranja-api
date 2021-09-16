@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.fcamara</groupId>
-	<artifactId>hackaton-api</artifactId>
+	<artifactId>agendalaranja-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>hackaton-api</name>
-	<description>Api de uma aplicação web de agendamento.</description>
+	<name>agendalaranja-api</name>
+	<description>Api de uma aplicação web de agendamento do grupo FCamara.</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -33,6 +33,19 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
@@ -63,6 +76,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>Agenda Laranja</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

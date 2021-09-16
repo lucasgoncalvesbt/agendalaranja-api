@@ -12,7 +12,7 @@ Para rodar a aplicação você vai precisar de:
 
 ## Rodando a aplicação localmente
 
-Existem várias maneiras de executar um aplicativo Spring Boot em sua máquina local. Uma maneira é executar o método `main` na classe `br.com.fcamara.hackatonapi.HackatonApiApplication` do seu IDE.
+Existem várias maneiras de executar um aplicativo Spring Boot em sua máquina local. Uma maneira é executar o método `main` na classe `br.com.fcamara.agendalaranjaapi.AgendaLaranjaApiApplication` do seu IDE.
 
 Ou como alternativa você pode utilizar o [Spring Boot Maven plugin](https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-maven-plugin.html):
 
